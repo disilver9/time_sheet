@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+     <!--Angular Js -->
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.17/angular-filter.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+    
+     <script src="../js/mainCtrl.js"></script>
+  </head>
+  <body ng-app="myApp" ng-controller="homeCtrl">
+            
+    <nav class="navbar navbar-light bg-faded">
+  		<a class="navbar-brand" href="#">
+    		<img src="../assets/vertisjm-logo.png">
+    	</a>
+	</nav>
+	<div class="row bg-primary" style="height: 5px;"></div>
+	<div class="row " style="height: 10px;"></div>
+	<div class="row">
+	   <div class="col-1"></div>
+            <div class="col-3">
+               <div class="card bg-faded" style='padding:20px;'>
+                      <div class="card-block">
+                          <h4 class="card-title text-center">User Card</h4>
+                                  <p class="card-text"><b>Name:</b>{{first_name}} {{last_name}}</p>
+                                  <p class="card-text"><b>Address:</b>{{address}}</p>
+                                  <button type="button" class="btn btn-primary" data-ng-click="logout()">Log Out</button>
+               </div>
+              </div>
+              <div class="row" style="height: 50px;"></div>
+              <div class="card bg-faded">
+                      <div class="card-block" style="padding:20px;">
+                          <h4 class="card-title text-center">Time Sheet Form</h4>
+                          <p class="card-text">Provide the appropriate responses for the following :)</p>
+                                  <form>
+                                    <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Work Title" data-ng-model="m_title">
+                                                    </div>
+                                                    </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-control custom-select" data-ng-model="m_client">
+                                                      <option value='Choose Client'>Choose Client.....</option>
+                                                      <option ng-repeat="x in clients" data-ng-click="clientsI(x)">{{x.client_name}}</option>
+                                                    </select>
+                                              </div>
+                                            </div>
+                                              <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <ul style="list-style-type:none">
+                                                        <li><b>Client's Name:</b> {{c_name}} </li>
+                                                        <li><b>Managers Name:</b> {{m_name}}   </li>
+                                                        <li><b>Position:</b> {{m_position}}   </li>
+                                                        <li></li>
+                                                      </ul>
+                                              </div>
+                                            </div>
+                                          
+                                           <div class="form-group row">
+                                      <div class="col-sm-12">
+                                           <label for="descriptionTextarea1">Date Worked:   </label>
+                                           <input type="date" name="time-sheet" data-ng-model="m_date">
+                                        </div>
+                                  </div>
+                                  
+                                  <div class="form-group row">
+                                      <div class="col-sm-6">
+                                            <select class="form-control custom-select" data-ng-model="m_start">
+                                                      <option value='Choose Start'>Choose Start.....</option>
+                                                      <option ng-value={{x}} ng-repeat="x in time ">{{x}}:00</option>
+                                                   
+                                                    </select>
+                                           
+                                        </div>
+                                        <div class="col-sm-6">
+                                              <select class="form-control custom-select" data-ng-model="m_end">
+                                                  <option value='Choose End'>Choose Ends.....</option>
+                                                      <option ng-value={{x}} ng-repeat="x in time ">{{x}}:00</option>
+                                                    </select>
+                                           
+                                        </div>
+                                  </div>
+                                  
+                                          
+                                  <div class="form-group row">
+                                      <div class="col-sm-12">
+                                           <label for="descriptionTextarea1">Comments:</label>
+                                           <textarea class="form-control" id="descriptionTextarea1" rows="3"  data-toggle="tooltip" data-placement="right" data-ng-model= "m_comments"></textarea>
+                                        </div>
+                                  </div>
+                                            
+                                            
+                                  </form>
+                                  <div class="row" style="height: 25px;"></div>
+                                   <button type="button" class="btn btn-primary" data-ng-click="submit_m()">Submit</button>
+
+                              </div>
+                      </div>
+                  
+          </div>
+            <div class="col-8">
+                         <div class="row" >
+                     
+                         <div class="col col-5">
+                                <ul style="list-style-type:none">
+                                    <li><b>Client's Name:</b> {{m_client}} </li>
+                                    <li><b>Work Title:</b> {{total}}   </li>
+                                    
+                                    <li></li>
+                                  </ul>
+                          </div>
+                          </div>
+                         <div class="row">
+                          <div class="col-lg-1"></div>
+                          <div class="col-lg-10">
+                          <table class="table table-striped">
+                          <thead>
+                            <tr>
+                            <th>Date</th>
+                            <th>Work Title</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Total Time</th>
+                            <th>Comment</th>
+                            <th></th>
+                          </tr>
+                          </thead>
+                          <tr ng-repeat="x in sheets | filter : {client: m_client} | filter : {title: m_title} ">
+                            <td>{{x.date1  | limitTo : 24}}</td>
+                             <td>{{x.title}}</td>
+                            <td>{{x.start}}:00</td>
+                            <td>{{x.end1}}:00</td>
+                            <td>{{x.total}} hrs</td>
+                            <td>{{x.comments}}</td>
+                          </tr>
+                          </table>
+                    </div>
+               
+                        
+                      </div>
+          
+	</div>
+	
+	
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
